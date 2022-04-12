@@ -17,10 +17,14 @@ class ProjectsController extends Controller
     public function create()
     {
         // validate
+        $attributes = request()->validate([
+            'title' => 'required',
+            'description' => 'required'
+        ]);
 
         // persist
-        Project::create(request(['title', 'body']));
-        
+        Project::create($attributes);
+
         // redirect
         return redirect('/projects');
     }
