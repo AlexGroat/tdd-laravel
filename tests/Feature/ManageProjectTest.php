@@ -31,6 +31,8 @@ class ManageProjectTest extends TestCase
 
         $this->actingAs(User::factory()->create());
 
+        $this->get('/projects/create')->assertStatus(200);
+
         $attributes = [
             'title' => $this->faker->sentence,
             'description' => $this->faker->paragraph

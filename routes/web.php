@@ -20,9 +20,9 @@ Route::get('/', function () {
 });
 
 Route::controller(ProjectsController::class)->group(function () {
+    Route::get('/projects/create', 'create')->middleware('auth');
     Route::get('/projects', 'index')->middleware('auth');
     Route::get('/projects/{project}', 'show')->middleware('auth');
-    // Route::get('/projects/create', 'create')->middleware('auth');
     Route::post('/projects', 'store')->middleware('auth');
 });
 
