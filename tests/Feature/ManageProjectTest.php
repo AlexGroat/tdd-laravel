@@ -74,6 +74,18 @@ class ManageProjectTest extends TestCase
     }
 
     /** @test */
+    public function test_user_cannot_view_others_projects()
+    {
+        $this->be(User::factory()->create());
+
+        // $this->withoutExceptionHandling();
+
+        $project = Project::factory()->create();
+
+        $this->get($project->path())->assertStatus(403);
+    }
+
+    /** @test */
     public function test_project_requires_title()
     {
         $this->actingAs(User::factory()->create());
