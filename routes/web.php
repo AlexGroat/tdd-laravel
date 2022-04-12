@@ -19,8 +19,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/projects', [ProjectsController::class, 'index']);
-Route::post('/projects', [ProjectsController::class, 'create']);
+Route::controller(ProjectsController::class)->group(function () {
+    Route::get('/projects', 'index');
+    Route::get('/projects/{project}', 'show');
+    Route::post('/projects', 'create');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
