@@ -1,37 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <h1>Create a Project!</h1>
-
+@section('content')
+<div class="">
     <form method="POST" action="/projects">
+        <h1>Create a Project!</h1>
         @csrf
         <label class="block mb-2 text-xs font-bold text-gray-700 uppercase" for="title">
             Title
         </label>
         <input class="w-full p-2 border border-gray-400 rounded" type="text" id="title" name="title" required>
-        </div>
+</div>
 
-        <div class="mb-6">
-            <label class="block mb-2 text-xs font-bold text-gray-700 uppercase" for="description">
-                Description
-            </label>
-            <textarea class="w-full p-2 border border-gray-400 rounded" type="text" id="description" name="description" required></textarea>
-        </div>
-        <div class="field">
-            <div class="control">
-                <button type="submit" class="button">Create a Project</button>
-            </div>
-        </div>
-    </form>
-    
-</body>
-
-</html>
+<div class="mb-6">
+    <label class="block mb-2 text-xs font-bold text-gray-700 uppercase" for="description">
+        Description
+    </label>
+    <textarea class="w-full p-2 border border-gray-400 rounded" type="text" id="description" name="description" required></textarea>
+</div>
+<div class="field">
+    <div class="control">
+        <button type="submit" class="button">Create a Project</button>
+        <a href="/projects">Cancel</a>
+    </div>
+</div>
+</div>
+</form>
+@endsection
