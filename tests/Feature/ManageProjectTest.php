@@ -61,4 +61,14 @@ class ManageProjectTest extends TestCase
 
         $this->post('/projects', $attributes)->assertSessionHasErrors('description');
     }
+
+    /** @test */
+    public function test_project_requires_owner()
+    {
+        // $this->withoutExceptionHandling();
+
+        $attributes = Project::factory()->raw(['owner_id' => null]);
+
+        $this->post('/projects', $attributes)->assertSessionHasErrors('owner_id');
+    }
 }
