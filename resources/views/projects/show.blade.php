@@ -13,8 +13,6 @@
 
     <div>{{ $project->description }}</div>
 
-
-
 </body>
 
 </html>
