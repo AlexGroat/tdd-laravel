@@ -14,7 +14,7 @@ class ProjectsController extends Controller
         return view('projects.index', compact('projects'));
     }
 
-    public function create()
+    public function store()
     {
         // validate
         $attributes = request()->validate([
