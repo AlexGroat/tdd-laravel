@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use App\Models\Project;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -13,10 +14,20 @@ class ManageProjectTest extends TestCase
     use WithFaker, RefreshDatabase;
 
     /** @test */
+    public function test_auth_users_can_create_projects()
+    {
+        $attributes = Project::factory()->raw();
+
+        $this->post('/projects', $attributes)->assertRedirect('login');
+    }
+
+    /** @test */
     public function test_user_can_create_project()
     {
 
         $this->withoutExceptionHandling();
+
+        $this->actingAs(User::factory()->create());
 
         $attributes = [
             'title' => $this->faker->sentence,
@@ -38,6 +49,8 @@ class ManageProjectTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
+        $this->actingAs(User::factory()->create());
+
         $project = Project::factory()->create();
 
         $this->get($project->path())
@@ -48,6 +61,8 @@ class ManageProjectTest extends TestCase
     /** @test */
     public function test_project_requires_title()
     {
+        $this->actingAs(User::factory()->create());
+
         // raw builds up attributes, but stores it as an array
         $attributes = Project::factory()->raw(['title' => []]);
 
@@ -57,16 +72,10 @@ class ManageProjectTest extends TestCase
     /** @test */
     public function test_project_requires_description()
     {
+        $this->actingAs(User::factory()->create());
+
         $attributes = Project::factory()->raw(['description' => []]);
 
         $this->post('/projects', $attributes)->assertSessionHasErrors('description');
-    }
-
-    /** @test */
-    public function test_project_requires_owner()
-    {
-        $attributes = Project::factory()->raw();
-
-        $this->post('/projects', $attributes)->assertRedirect('login');
     }
 }

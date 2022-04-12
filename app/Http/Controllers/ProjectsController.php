@@ -16,17 +16,13 @@ class ProjectsController extends Controller
 
     public function create()
     {
-        dd('balegde');
         // validate
         $attributes = request()->validate([
             'title' => 'required',
             'description' => 'required'
         ]);
 
-        $attributes['owner_id'] = auth()->id();
-
-        // persist
-        Project::create($attributes);
+        auth()->user()->projects()->create($attributes);
 
         // redirect
         return redirect('/projects');
